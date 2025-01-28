@@ -16,7 +16,7 @@ export const parseCsvFile = async (file: File): Promise<any[]> => {
             headers.forEach((header, index) => {
               let value = values[index]?.trim();
               if (['quantity', 'price', 'total'].includes(header.toLowerCase())) {
-                value = parseFloat(value);
+                value = parseFloat(value || '0');
               }
               row[header.toLowerCase()] = value;
             });
