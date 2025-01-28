@@ -1,14 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-
-interface Trade {
-  date: string;
-  type: string;
-  symbol: string;
-  quantity: number;
-  price: number;
-  total: number;
-  taxable: boolean;
-}
+import type { Trade } from "@/types/tax";
 
 interface TradesTableProps {
   trades: Trade[];
