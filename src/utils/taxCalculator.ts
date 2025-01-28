@@ -1,14 +1,12 @@
-interface Trade {
-  type: string;
-  total: number;
-  date: string;
-}
+import { getCountryTaxRules } from './taxRules';
+import type { Trade } from '@/types/tax';
 
-export const calculateTaxableEvents = (trades: Trade[]): Trade[] => {
-  // Basic Irish CGT rules implementation
+export const calculateTaxableEvents = (trades: Trade[], countryCode: string = 'IE'): Trade[] => {
+  const rules = getCountryTaxRules(countryCode);
+  
   return trades.map(trade => ({
     ...trade,
-    // Mark sells as taxable events (this is a simplified version)
-    taxable: trade.type.toLowerCase() === 'sell'
+    // A trade is taxable if any rule marks it as taxable
+    taxable: rules.some(rule => rule.calculateTax(trade))
   }));
 };

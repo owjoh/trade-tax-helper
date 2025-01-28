@@ -5,12 +5,14 @@ import { TaxSummary } from "@/components/TaxSummary";
 import { calculateTaxableEvents } from "@/utils/taxCalculator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Info } from "lucide-react";
+import type { Trade } from "@/types/tax";
 
 const Index = () => {
-  const [trades, setTrades] = useState<any[]>([]);
+  const [trades, setTrades] = useState<Trade[]>([]);
+  const [countryCode] = useState('IE'); // This could be made selectable in the future
 
-  const handleDataLoaded = (data: any[]) => {
-    const processedTrades = calculateTaxableEvents(data);
+  const handleDataLoaded = (data: Trade[]) => {
+    const processedTrades = calculateTaxableEvents(data, countryCode);
     setTrades(processedTrades);
   };
 
@@ -21,7 +23,7 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-finance-navy">Irish Trade Tax Calculator</h1>
+          <h1 className="text-3xl font-bold text-finance-navy">Trade Tax Calculator</h1>
           <p className="mt-2 text-gray-600">Import your trading data and identify taxable events</p>
         </div>
 
@@ -40,17 +42,6 @@ const Index = () => {
                   <li><code className="bg-gray-100 px-1.5 py-0.5 rounded">price</code> - Price per share</li>
                   <li><code className="bg-gray-100 px-1.5 py-0.5 rounded">total</code> - Total transaction value</li>
                 </ul>
-                <div className="mt-4 p-4 bg-white rounded border border-gray-200">
-                  <p className="font-medium text-gray-900 mb-2">Example CSV Content:</p>
-                  <pre className="text-xs bg-gray-100 p-3 rounded overflow-x-auto">
-date,type,symbol,quantity,price,total
-2024-01-15,buy,AAPL,10,190.50,1905.00
-2024-02-01,buy,GOOGL,5,142.75,713.75
-2024-02-15,sell,AAPL,5,195.25,976.25
-2024-03-01,buy,MSFT,8,420.30,3362.40
-2024-03-15,sell,GOOGL,2,145.80,291.60</pre>
-                </div>
-                <p className="mt-4 text-sm text-gray-500">Note: Save this as a .csv file with the exact column names shown above.</p>
               </div>
             </div>
             <FileUpload onDataLoaded={handleDataLoaded} />
