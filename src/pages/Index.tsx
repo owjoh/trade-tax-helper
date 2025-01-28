@@ -40,7 +40,17 @@ const Index = () => {
                   <li><code className="bg-gray-100 px-1.5 py-0.5 rounded">price</code> - Price per share</li>
                   <li><code className="bg-gray-100 px-1.5 py-0.5 rounded">total</code> - Total transaction value</li>
                 </ul>
-                <p className="mt-2">Example: <code className="bg-gray-100 px-1.5 py-0.5 rounded">date,type,symbol,quantity,price,total</code></p>
+                <div className="mt-4 p-4 bg-white rounded border border-gray-200">
+                  <p className="font-medium text-gray-900 mb-2">Example CSV Content:</p>
+                  <pre className="text-xs bg-gray-100 p-3 rounded overflow-x-auto">
+date,type,symbol,quantity,price,total
+2024-01-15,buy,AAPL,10,190.50,1905.00
+2024-02-01,buy,GOOGL,5,142.75,713.75
+2024-02-15,sell,AAPL,5,195.25,976.25
+2024-03-01,buy,MSFT,8,420.30,3362.40
+2024-03-15,sell,GOOGL,2,145.80,291.60</pre>
+                </div>
+                <p className="mt-4 text-sm text-gray-500">Note: Save this as a .csv file with the exact column names shown above.</p>
               </div>
             </div>
             <FileUpload onDataLoaded={handleDataLoaded} />
