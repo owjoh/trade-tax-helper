@@ -13,10 +13,10 @@ export const FileUpload = ({ onDataLoaded }: FileUploadProps) => {
 
   const handleFile = async (file: File) => {
     try {
-      if (!file.name.endsWith('.csv')) {
+      if (!file.name.endsWith('.csv') && !file.name.endsWith('.txt')) {
         toast({
           title: "Invalid file type",
-          description: "Please upload a CSV file",
+          description: "Please upload a CSV or TXT file",
           variant: "destructive",
         });
         return;
@@ -26,12 +26,12 @@ export const FileUpload = ({ onDataLoaded }: FileUploadProps) => {
       onDataLoaded(data);
       toast({
         title: "Success",
-        description: "CSV file imported successfully",
+        description: "File imported successfully",
       });
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to parse CSV file",
+        description: "Failed to parse file",
         variant: "destructive",
       });
     }
@@ -58,13 +58,13 @@ export const FileUpload = ({ onDataLoaded }: FileUploadProps) => {
     >
       <Upload className="mx-auto h-12 w-12 text-gray-400" />
       <p className="mt-2 text-sm text-gray-600">
-        Drag and drop your CSV file here, or{" "}
+        Drag and drop your CSV or TXT file here, or{" "}
         <label className="text-finance-navy hover:text-finance-green cursor-pointer">
           browse
           <input
             type="file"
             className="hidden"
-            accept=".csv"
+            accept=".csv,.txt"
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) handleFile(file);
